@@ -1,0 +1,37 @@
+{
+  "name": "finradar",
+  "version": "0.1.0",
+  "description": "Research SEC filings, institutional holdings, insider transactions, beneficial ownership and company financials with FinRadar.",
+  "author": {
+    "name": "FinRadar",
+    "url": "https://finradar.ai"
+  },
+  "homepage": "https://api.finradar.ai",
+  "keywords": [
+    "finance",
+    "SEC",
+    "13F",
+    "institutional-holdings",
+    "insider-transactions"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "FinRadar",
+    "composerIcon": "./assets/finradar-icon.png",
+    "logo": "./assets/finradar-icon.png",
+    "shortDescription": "SEC filings, holdings, insider trades and financials",
+    "longDescription": "Use FinRadar's hosted data connection with concise research instructions that rely on the connection's current tool definitions. Find institutional portfolios, SEC filings, insider transactions, beneficial ownership and company financials. A FinRadar account and connection authorization are required; normal API usage charges apply.",
+    "developerName": "FinRadar",
+    "category": "Finance",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://finradar.ai",
+    "defaultPrompt": [
+      "Use FinRadar to get Berkshire Hathaway's five largest reported positions.",
+      "Use FinRadar to get Apple's five most recent SEC filings.",
+      "Use FinRadar to get the five most recent insider transactions for NVDA."
+    ]
+  }
+}

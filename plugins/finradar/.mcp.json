@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "finradar": {
+      "type": "http",
+      "url": "https://api.finradar.ai/api/mcp"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "finradar",
+  "description": "Research SEC filings, institutional holdings, insider transactions, beneficial ownership and company financials with FinRadar.",
+  "owner": {
+    "name": "FinRadar",
+    "url": "https://finradar.ai"
+  },
+  "plugins": [
+    {
+      "name": "finradar",
+      "source": "./",
+      "displayName": "FinRadar",
+      "description": "Research SEC filings, institutional holdings, insider transactions, beneficial ownership and company financials with FinRadar.",
+      "category": "Finance"
+    }
+  ]
+}

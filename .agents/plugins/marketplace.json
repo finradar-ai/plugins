@@ -1,0 +1,20 @@
+{
+  "name": "finradar",
+  "interface": {
+    "displayName": "FinRadar"
+  },
+  "plugins": [
+    {
+      "name": "finradar",
+      "source": {
+        "source": "local",
+        "path": "./plugins/finradar"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Finance"
+    }
+  ]
+}
