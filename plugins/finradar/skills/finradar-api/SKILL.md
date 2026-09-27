@@ -16,11 +16,24 @@ from the connection's current tool definitions, not from a bundled API catalogue
   FinRadar capability needed. Do not dump the entire catalogue for one lookup.
 - Follow the selected tool's advertised argument names, types and allowed
   values. Do not reconstruct a call from remembered API paths or old examples.
+- Preserve documented defaults for filters the user did not request. Do not
+  carry a date range, filing-version selection or other filter into an unrelated
+  query. Presentation wording alone does not select a historical filing version.
+- A missing cell or empty filtered result describes that request. Report its
+  returned status and reason; do not infer global unavailability, replace a
+  reported metric with your own calculation, or change the user's requested filters.
 - Resolve missing or ambiguous identifiers through the relevant FinRadar lookup.
   Reuse identifiers already established in the conversation; do not repeat a
   resolved lookup or substitute an example identifier for the requested entity.
 - Request the user's filters, ordering, reporting period and result count where
   the current tool supports them. Do not fetch unrelated enrichment.
+- For an "as stated" or "as filed" company financial statement, select the
+  company-statements capability first. Do not reconstruct the statement from
+  raw facts and do not substitute a standardized statement template.
+- When a selected tool says its first text block is ready to display, return
+  that text unchanged in a plain-text code block as the answer. Do not summarize, reformat, relabel,
+  reorder, recalculate or reconstruct it from the structured response. Use the
+  structured response only when the user asks for further analysis.
 - Answer once sufficient data returns. Preserve the result's reporting date,
   units and source, and distinguish reported holdings from real-time positions.
 
