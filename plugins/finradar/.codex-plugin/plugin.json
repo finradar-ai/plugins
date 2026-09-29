@@ -1,6 +1,6 @@
 {
   "name": "finradar",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Research SEC filings, institutional holdings, insider transactions, beneficial ownership and company financials with FinRadar.",
   "author": {
     "name": "FinRadar",

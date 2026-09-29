@@ -27,9 +27,6 @@ from the connection's current tool definitions, not from a bundled API catalogue
   resolved lookup or substitute an example identifier for the requested entity.
 - Request the user's filters, ordering, reporting period and result count where
   the current tool supports them. Do not fetch unrelated enrichment.
-- For an "as stated" or "as filed" company financial statement, select the
-  company-statements capability first. Do not reconstruct the statement from
-  raw facts and do not substitute a standardized statement template.
 - When a selected tool says its first text block is ready to display, return
   that text unchanged in a plain-text code block as the answer. Do not summarize, reformat, relabel,
   reorder, recalculate or reconstruct it from the structured response. Use the
