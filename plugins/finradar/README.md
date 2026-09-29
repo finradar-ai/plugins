@@ -4,6 +4,97 @@ One shared skill and one hosted connection support Codex and Claude. The skill
 uses current tool definitions from the connected service instead of a copied API
 catalogue. A normal query does not run an updater or fetch documentation first.
 
+## Install once and receive updates
+
+Use the published GitHub marketplace at https://github.com/finradar-ai/plugins.
+Both clients install the same released skill and hosted FinRadar connection.
+A FinRadar account is required; complete the client's normal connection sign-in
+when prompted. This does not choose or change your OpenAI or Anthropic account.
+
+### Codex
+
+Run these commands once from a terminal with Codex installed:
+
+~~~sh
+codex plugin marketplace add finradar-ai/plugins --ref main
+codex plugin add finradar@finradar
+~~~
+
+The FinRadar source must remain a Git marketplace tracking main. Codex 0.158
+includes a native background startup refresh for configured Git marketplaces
+and their installed plugin copies. Start a new client session to load an update;
+a successful package publication does not prove a running session has loaded it.
+For an immediate refresh of this marketplace only:
+
+~~~sh
+codex plugin marketplace upgrade finradar
+~~~
+
+Check the installed entry with:
+
+~~~sh
+codex plugin list --marketplace finradar --json
+~~~
+
+Command reference: https://learn.chatgpt.com/docs/developer-commands#codex-plugin
+Native startup behavior for the inspected version:
+https://github.com/openai/codex/blob/rust-v0.158.0/codex-rs/core-plugins/src/manager.rs
+
+### Claude Code
+
+Run these commands once from a terminal with Claude Code installed:
+
+~~~sh
+claude plugin marketplace add finradar-ai/plugins
+claude plugin install finradar@finradar
+~~~
+
+Then open /plugin in Claude Code, select Marketplaces, select finradar, and
+choose Enable auto-update. Third-party marketplaces have automatic updates off
+by default. This is a one-time customer setting, not a setting the package can
+silently change. Administrators can use the documented autoUpdate setting on
+this same marketplace instead of introducing a separate updater.
+
+With automatic updates enabled, Claude Code checks in the background after the
+first message in an interactive session, with a random delay of up to ten
+minutes. Downloaded versions load on the next launch, or after /reload-plugins.
+Client update-disabling settings and organizational restrictions still apply.
+An immediate update of FinRadar only is also available:
+
+~~~sh
+claude plugin update finradar@finradar
+~~~
+
+Check the installed entry with:
+
+~~~sh
+claude plugin list --json
+~~~
+
+Update behavior and settings:
+https://code.claude.com/docs/en/plugins/loading#when-auto-update-runs
+
+### Existing installations and release verification
+
+An installation already tracking this GitHub marketplace needs no reinstall
+for each release. A local development folder or manually downloaded archive
+needs a one-time migration to the published marketplace. Verify the new source,
+installed version and connection before retiring the old FinRadar entry. Keep
+other plugins and account settings unchanged. Do not keep two active FinRadar
+copies or maintain the old development folder as a second release source.
+
+The release command automatically prepares both formats and publishes changed
+package content with an increased version after its checks pass. API-only or
+data-only changes can leave this small connection package unchanged: financial
+data and tool definitions are supplied by the hosted service. Provider refresh,
+permissions and review rules govern when changed tools become visible.
+
+The existing release checker runs the offline package and publication tests.
+Public repository readback proves the released files; installed-version readback
+proves a client received them. Neither alone proves a financial query succeeds.
+This GitHub installation route serves local Codex and Claude Code clients.
+Public directory approval and website-account installation are separate steps.
+
 ## Contents and build
 
 - `skills/finradar-api/SKILL.md`: stable connected-research instructions.
@@ -64,11 +155,10 @@ login supplies repository access without adding secrets to the package or server
 The publisher never submits provider listings or changes installed clients.
 Initial installation, provider review and host update permissions still apply.
 
-The former personal package on the development laptop remains an unchanged
-development snapshot, not a second release source. Do not maintain it separately.
-Retire its standalone development role when an approved catalog migration points
-clients at this repository's released package; this integration does not change
-existing personal catalogs or installed plugins.
+Local development folders are development snapshots. Customers should install
+from the public GitHub marketplace above; do not maintain personal folders as a
+second release source. Migrate existing local installations through the client's
+installation flow, verify the released copy, then retire the old catalogue entry.
 
 The Claude catalog is included in the release and regenerated on every build.
 Generating it does not register a marketplace with Claude, install the plugin,
@@ -91,7 +181,7 @@ Published skill-content changes still require a new reviewed plugin version:
 https://developers.openai.com/plugins/deploy/submission
 
 Claude controls plugin updates through its host and marketplace settings:
-https://code.claude.com/docs/en/discover-plugins#configure-auto-updates
+https://code.claude.com/docs/en/discover-plugins#keep-plugins-updated
 
 This package does not create a public directory listing, publish itself,
 force a client refresh, or prove fresh-client authorization or improved latency.

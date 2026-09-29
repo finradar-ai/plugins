@@ -1,10 +1,11 @@
 {
   "name": "finradar",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Research SEC filings, institutional holdings, insider transactions, beneficial ownership and company financials with FinRadar.",
   "author": {
     "name": "FinRadar",
-    "url": "https://finradar.ai"
+    "url": "https://api.finradar.ai",
+    "email": "support@finradar.ai"
   },
   "homepage": "https://api.finradar.ai",
   "keywords": [
