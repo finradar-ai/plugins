@@ -105,6 +105,7 @@ Public directory approval and website-account installation are separate steps.
   same package, with its category and display metadata from the canonical source.
 - `scripts/package_plugin.py`: generates both Claude files, checks consistency,
   and creates a deterministic `.plugin` ZIP from an explicit file allowlist.
+- `legal/privacy-policy/index.html`: canonical script-free public privacy policy.
 
 Run the packaging script with `--output-dir` to generate a release. Its `--check`
 mode verifies consistency without writing. It refuses copied reference files,
@@ -151,6 +152,17 @@ publishes the complete tree. An older source commit, unexpected repository files
 competing release, failed request or failed readback stops completion; there is
 no automatic rollback, service restart or background retry. The existing GitHub
 login supplies repository access without adding secrets to the package or server.
+
+Before the publisher updates the generated GitHub distribution, it requires the
+public `https://mcp.finradar.ai/privacy-policy/` response to be byte-identical to
+the committed package file. The dedicated MCP Nginx edge serves that committed
+file read-only. A missing page, redirect, wrong content type or byte mismatch
+stops the release before the public plugin repository changes.
+
+The same publisher requires OpenAI's public domain-verification address to
+return the one-line value stored in the exact approved server commit as plain
+text. A missing route, redirect, HTML response, extra byte or different value
+stops publication before the generated GitHub distribution changes.
 
 The publisher never submits provider listings or changes installed clients.
 Initial installation, provider review and host update permissions still apply.

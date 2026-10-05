@@ -15,6 +15,7 @@ FILES = (
     ".codex-plugin/plugin.json", ".claude-plugin/plugin.json", ".mcp.json",
     "skills/finradar-api/SKILL.md", "README.md", "scripts/package_plugin.py",
     "assets/finradar-icon.png", ".claude-plugin/marketplace.json",
+    "legal/privacy-policy/index.html",
 )
 
 

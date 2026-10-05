@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FinRadar privacy policy and information about how personal information is collected, used, protected, and retained.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0b7a43" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1210" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://mcp.finradar.ai/privacy-policy/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%230b1210'/%3E%3Cpath d='M14 14h36v10H24v8h22v10H24v8H14z' fill='%23ffffff'/%3E%3C/svg%3E">
+  <title>Privacy Policy | FinRadar</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f8f6;
+      --surface: #ffffff;
+      --surface-subtle: #edf4f0;
+      --text: #102019;
+      --muted: #55665d;
+      --line: #d3ded8;
+      --accent: #0b7a43;
+      --accent-strong: #075c33;
+      --accent-soft: #e0f3e8;
+      --warning: #8b5211;
+      --warning-bg: #fff8e8;
+      --shadow: 0 16px 44px rgba(16, 32, 25, 0.08);
+      font-family: Sora, Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      font-synthesis: none;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1210;
+        --surface: #101b17;
+        --surface-subtle: #15251e;
+        --text: #f0f6f2;
+        --muted: #a7b6ae;
+        --line: #2c4036;
+        --accent: #4cdb91;
+        --accent-strong: #7be8ad;
+        --accent-soft: #153928;
+        --warning: #f3bc6c;
+        --warning-bg: #2c2316;
+        --shadow: none;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); }
+    a { color: var(--accent-strong); text-underline-offset: 0.18em; }
+    a:hover { text-decoration-thickness: 2px; }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+    .skip-link { position: fixed; left: 16px; top: 12px; z-index: 3; transform: translateY(-160%); padding: 10px 14px; background: var(--text); color: var(--surface); text-decoration: none; }
+    .skip-link:focus { transform: translateY(0); }
+    .site-header { border-bottom: 1px solid var(--line); background: var(--surface); }
+    .site-header__inner { max-width: 1120px; min-height: 72px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; color: var(--text); text-decoration: none; }
+    .brand img { display: block; width: 148px; height: auto; }
+    .brand__dark { display: none; }
+    @media (prefers-color-scheme: dark) { .brand__light { display: none; } .brand__dark { display: block; } }
+    .site-header__label { margin: 0; color: var(--muted); font-size: 0.82rem; font-weight: 650; letter-spacing: 0.02em; }
+    main { max-width: 1120px; margin: 0 auto; padding: 52px 28px 72px; }
+    .policy { background: var(--surface); border: 1px solid var(--line); border-radius: 2px; box-shadow: var(--shadow); padding: clamp(28px, 5vw, 68px); }
+    h1, h2, h3 { color: var(--text); line-height: 1.25; text-wrap: balance; }
+    h1 { margin: 0; max-width: 16ch; font-size: clamp(2.2rem, 6vw, 4.4rem); letter-spacing: -0.055em; }
+    h2 { margin: 2.8rem 0 0.8rem; padding-top: 0.35rem; font-size: clamp(1.35rem, 2.4vw, 1.8rem); letter-spacing: -0.025em; }
+    h3 { margin: 1.55rem 0 0.45rem; font-size: 1.02rem; }
+    p, li { color: var(--muted); font-size: 1rem; }
+    p { margin: 0 0 1rem; }
+    ul, ol { margin: 0.4rem 0 1.3rem; padding-left: 1.35rem; }
+    li + li { margin-top: 0.38rem; }
+    strong { color: var(--text); }
+    .last-updated { margin: 0.7rem 0 2rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .intro { max-width: 76ch; font-size: 1.05rem; }
+    .highlights-box { margin: 2.3rem 0; padding: 24px; border: 1px solid var(--line); border-left: 4px solid var(--accent); background: var(--surface-subtle); }
+    .highlights-box > h2 { margin-top: 0; padding-top: 0; }
+    .highlight-item { display: grid; grid-template-columns: minmax(150px, 0.34fr) 1fr; gap: 24px; padding: 16px 0; border-top: 1px solid var(--line); }
+    .highlight-item h3, .highlight-item p { margin: 0; }
+    .toc { margin: 2.3rem 0 3.4rem; padding: 24px; border: 1px solid var(--line); }
+    .toc h2 { margin-top: 0; padding-top: 0; }
+    .toc ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 28px; margin: 0; padding: 0; list-style: none; }
+    .toc li { margin: 0; }
+    .toc a { display: block; padding: 5px 0; }
+    .section, .contact-box { scroll-margin-top: 28px; max-width: 82ch; }
+    .section + .section, .section + .contact-box, .contact-box + .section { margin-top: 2.6rem; padding-top: 0.35rem; border-top: 1px solid var(--line); }
+    .section > h2, .contact-box > h2 { margin-top: 0; }
+    .emphasis { margin: 1.4rem 0; padding: 18px 20px; border-left: 4px solid var(--warning); background: var(--warning-bg); }
+    .emphasis p { margin: 0; }
+    .contact-box { margin-top: 2.6rem; padding: 24px; border: 1px solid var(--accent); background: var(--accent-soft); }
+    .contact-box h2 { padding-top: 0; }
+    .legal-footer { margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
+    .legal-footer__text { margin: 0; font-size: 0.84rem; }
+    @media (max-width: 700px) {
+      .site-header__inner { min-height: 62px; padding: 12px 18px; }
+      .brand img { width: 126px; }
+      .site-header__label { font-size: 0.74rem; }
+      main { padding: 22px 12px 40px; }
+      .policy { padding: 25px 20px 36px; }
+      .highlight-item { grid-template-columns: 1fr; gap: 6px; }
+      .toc ul { grid-template-columns: 1fr; }
+      h1 { font-size: 2.35rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      :root { color-scheme: light; }
+      body, .policy { background: #fff; }
+      .site-header, .skip-link { display: none; }
+      main { max-width: none; padding: 0; }
+      .policy { border: 0; box-shadow: none; padding: 0; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to privacy policy</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="https://api.finradar.ai" aria-label="FinRadar API home">
+        <img class="brand__light" src="https://api.finradar.ai/logo-light.png" alt="FinRadar">
+        <img class="brand__dark" src="https://api.finradar.ai/logo-dark.png" alt="FinRadar">
+      </a>
+      <p class="site-header__label">Legal</p>
+    </div>
+  </header>
+  <main id="main-content">
+    <article class="policy">
+
+<h1>Privacy Policy</h1>
+<p class="last-updated">Last Updated: October 2026</p>
+<div class="intro">
+<p>Thank you for choosing FinRadar.ai, your professional financial intelligence platform. This Privacy Policy outlines our practices regarding the collection, usage, disclosure, and protection of your personal information when you interact with our website at www.finradar.ai (“Platform”) and related services (“Services”).</p>
+<p>By accessing or using FinRadar.ai, you acknowledge that you have read, understood, and agree to the practices described in this Privacy Policy. We are committed to protecting your privacy while delivering exceptional financial research tools and market intelligence.</p>
+</div>
+<div class="highlights-box">
+<h2>Key Privacy Information</h2>
+<div class="highlight-item">
+<h3>Information We Gather</h3>
+<p>We collect information necessary to provide you with advanced financial analytics, hedge fund tracking, technical analysis tools, and market insights. This helps us deliver personalized investment research capabilities and continuously enhance our Platform.</p>
+</div>
+<div class="highlight-item">
+<h3>Sharing Practices</h3>
+<p>Your personal information is never sold. We may share data with trusted service providers who help us operate our Platform, and only as described in this Policy.</p>
+</div>
+<div class="highlight-item">
+<h3>Data Security</h3>
+<p>We employ robust administrative, technical, and physical measures to safeguard your information. While we implement industry-standard protections, please understand that no digital system can guarantee absolute security against all potential threats.</p>
+</div>
+<div class="highlight-item">
+<h3>Your Control</h3>
+<p>Depending on your location, you may have specific rights regarding your personal information, including access, correction, deletion, and data portability rights, as detailed below.</p>
+</div>
+</div>
+<div class="toc">
+<h2>Table of Contents</h2>
+<ul>
+<li><a href="#company">About FinRadar.ai</a></li>
+<li><a href="#definitions">Personal Information Defined</a></li>
+<li><a href="#collection">How We Collect Information</a></li>
+<li><a href="#usage">Information Collection and Usage</a></li>
+<li><a href="#cookies">Cookies and Tracking Technologies</a></li>
+<li><a href="#sharing">Information Sharing Practices</a></li>
+<li><a href="#legal-basis">Legal Foundations for Processing</a></li>
+<li><a href="#international">International Data Transfers</a></li>
+<li><a href="#security">Data Storage and Security</a></li>
+<li><a href="#retention">Information Retention Periods</a></li>
+<li><a href="#rights">Your Privacy Rights</a></li>
+<li><a href="#children">Children’s Privacy Protection</a></li>
+<li><a href="#ai">Artificial Intelligence Usage</a></li>
+<li><a href="#third-party">Third-Party Links and Services</a></li>
+<li><a href="#exercise">Exercising Your Rights</a></li>
+<li><a href="#contact">Contact Information</a></li>
+<li><a href="#updates">Policy Updates</a></li>
+</ul>
+</div>
+<div class="section" id="company">
+<h2>About FinRadar.ai</h2>
+<p>FinRadar.ai (“FinRadar,” “we,” “us,” or “our”) operates the www.finradar.ai Platform and provides financial intelligence services. When we collect your personal information through our Platform, we act as the “data controller” – meaning we determine how and why your information is processed.</p>
+</div>
+<div class="section" id="definitions">
+<h2>Personal Information Defined</h2>
+<p>Throughout this Policy, “personal information” refers to any data that identifies, relates to, describes, or could reasonably be linked to you as an individual. This includes information that qualifies as “personal data,” “personal information,” or “personally identifiable information” under applicable privacy regulations.</p>
+</div>
+<div class="section" id="collection">
+<h2>How We Collect Information</h2>
+<p>We obtain personal information through three primary methods:</p>
+<ol>
+<li><strong>Direct Collection:</strong> Information you voluntarily provide when using our Platform</li>
+<li><strong>Automatic Collection:</strong> Information gathered automatically through your interactions with our Platform</li>
+<li><strong>Third-Party Sources:</strong> We may receive information from external parties such as payment processors or service providers</li>
+</ol>
+</div>
+<div class="section" id="usage">
+<h2>Information Collection and Usage</h2>
+<h3>Account Registration</h3>
+<p>When creating a FinRadar.ai account, we collect:</p>
+<ul>
+<li>Full name (first and last name)</li>
+<li>Email address</li>
+<li>Username</li>
+<li>Work nature/professional category</li>
+<li>Password (stored as a salted cryptographic hash)</li>
+</ul>
+<p>For premium subscriptions, payment processing is handled by Stripe, our third-party payment processor. We do not store complete credit card information. Payment data is transmitted directly to Stripe and governed by their privacy policy.</p>
+<h3>Platform Preferences</h3>
+<p>We save your customization settings, including chart configurations, display preferences, and analysis tools selections. These settings are stored solely to personalize your experience and are not used for marketing purposes or shared with external parties.</p>
+<h3>Communication and Support</h3>
+<p>When you contact our support team or submit inquiries, we collect the information you provide to address your questions and improve our Services. This may include your name, email address, and message content.</p>
+<h3>Newsletter and Updates</h3>
+<p>If you subscribe to receive market insights, platform updates, or educational content, we use your email address to deliver this information. You can unsubscribe at any time using the link in each email.</p>
+<h3>Automatically Collected Information</h3>
+<p>Our Platform automatically gathers certain technical data to optimize performance and user experience:</p>
+<ul>
+<li>Browser type and version</li>
+<li>Operating system</li>
+<li>IP address and approximate location</li>
+<li>Pages visited and features accessed</li>
+<li>Time spent on the Platform</li>
+<li>Referring website or source</li>
+<li>Device identifiers and characteristics</li>
+</ul>
+<h3>Usage Analytics</h3>
+<p>We analyze how users interact with our Platform to identify popular features, understand user behavior patterns, and guide product improvements. This analysis helps us enhance the financial intelligence tools and market insights we provide.</p>
+</div>
+<div class="section" id="cookies">
+<h2>Cookies and Tracking Technologies</h2>
+<p>FinRadar.ai uses cookies to provide essential Platform functionality. Cookies are small text files stored on your device that help us maintain your login session and remember your preferences.</p>
+<h3>Essential Cookies We Use</h3>
+<ul>
+<li><strong>Authentication Cookies:</strong> Required to keep you logged in to your account and maintain your session security. These cookies are set when you log in and include “Remember Me” functionality if you select that option.</li>
+<li><strong>Preference Cookies:</strong> Store your customization settings, chart configurations, and display preferences so they persist across sessions.</li>
+</ul>
+<h3>Optional Cookies We May Use</h3>
+<ul>
+<li><strong>Analytics Cookies:</strong> We may use analytics services to understand how users interact with our Platform, which helps us improve our Services and user experience.</li>
+</ul>
+<p>Essential cookies are necessary for the Platform to function properly. Disabling them will prevent you from accessing your account and using our Services.</p>
+<h3>Managing Cookies</h3>
+<p>Most web browsers allow you to control cookies through their settings. However, if you disable essential cookies, you will not be able to log in or use FinRadar.ai’s features.</p>
+</div>
+<div class="section" id="sharing">
+<h2>Information Sharing Practices</h2>
+<p><strong>We do not sell your personal information.</strong> We may share your information in the following circumstances:</p>
+<h3>Service Providers</h3>
+<p>We work with trusted third-party companies that assist us in operating our Platform and delivering our Services, including:</p>
+<ul>
+<li>Payment processors (Stripe) for subscription management</li>
+<li>Email service providers (ActiveCampaign) for communications</li>
+<li>Cloud hosting services for data storage and Platform infrastructure</li>
+<li>Analytics providers to understand Platform usage</li>
+</ul>
+<p>These service providers are contractually obligated to protect your information and use it only for the specific purposes we authorize.</p>
+<h3>Legal Requirements</h3>
+<p>We may disclose personal information when required by law or in response to:</p>
+<ul>
+<li>Valid legal processes (subpoenas, court orders, search warrants)</li>
+<li>Government requests or investigations</li>
+<li>Situations involving potential violations of our terms of service</li>
+<li>Circumstances necessary to protect the rights, property, or safety of FinRadar.ai, our users, or others</li>
+</ul>
+<h3>Business Transfers</h3>
+<p>In the event of a merger, acquisition, reorganization, or sale of assets, your personal information may be transferred to the acquiring entity, subject to substantially similar privacy protections.</p>
+</div>
+<div class="section" id="legal-basis">
+<h2>Legal Foundations for Processing</h2>
+<p>We process your personal information based on the following legal grounds:</p>
+<h3>1. Contractual Necessity</h3>
+<p>Processing is essential to provide the Services you’ve requested, such as creating your account, delivering financial analytics tools, and processing your subscription.</p>
+<h3>2. Legitimate Interests</h3>
+<p>We have legitimate business interests in processing your information to improve our Platform, prevent fraud, ensure security, and communicate with you about our Services.</p>
+<h3>3. Consent</h3>
+<p>Where required by law, we obtain your explicit consent before processing certain categories of information, such as for marketing communications.</p>
+<h3>4. Legal Obligations</h3>
+<p>We process information when necessary to comply with legal requirements, such as responding to valid legal requests or maintaining required business records.</p>
+</div>
+<div class="section" id="international">
+<h2>International Data Transfers</h2>
+<p>FinRadar.ai operates servers and processes information primarily in the United States. If you access our Platform from outside the United States, your information will be transferred to and processed in the United States, where data protection laws may differ from those in your country.</p>
+<p>By using our Platform, you acknowledge and consent to the transfer of your information to the United States. We implement appropriate safeguards to protect your information during international transfers and ensure your privacy rights remain protected as described in this Policy.</p>
+</div>
+<div class="section" id="security">
+<h2>Data Storage and Security</h2>
+<p>We implement comprehensive security measures to protect your personal information, including:</p>
+<ul>
+<li>Encryption of sensitive data during transmission and storage</li>
+<li>Secure authentication protocols and password protection</li>
+<li>Regular security audits and vulnerability assessments</li>
+<li>Restricted access controls limited to authorized personnel</li>
+<li>Physical security measures at data center facilities</li>
+</ul>
+<div class="emphasis">
+<p><strong>Important Security Notice:</strong> While we employ robust security measures, no internet-based system can guarantee complete security. We cannot ensure absolute protection against all potential unauthorized access or security breaches. You use our Platform at your own discretion and risk.</p>
+</div>
+</div>
+<div class="section" id="retention">
+<h2>Information Retention Periods</h2>
+<p>We retain your personal information only as long as necessary to fulfill the purposes described in this Policy, comply with legal obligations, resolve disputes, and enforce our agreements.</p>
+<p>Retention periods are determined based on:</p>
+<ul>
+<li>The nature and sensitivity of the information</li>
+<li>The purposes for which it was collected</li>
+<li>Legal, regulatory, or contractual retention requirements</li>
+<li>Our legitimate business needs</li>
+</ul>
+<p>When information is no longer needed, we securely delete or anonymize it. If immediate deletion is not technically feasible (for example, due to backup archives), we isolate the information from active processing until permanent removal is possible.</p>
+</div>
+<div class="section" id="rights">
+<h2>Your Privacy Rights</h2>
+<p>Depending on your jurisdiction, you may have the following rights regarding your personal information:</p>
+<h3>Access Rights</h3>
+<p>You may request confirmation of what personal information we hold about you and obtain a copy of that information, including details about processing purposes, data categories, and recipient information.</p>
+<h3>Portability Rights</h3>
+<p>You may request your personal information in a structured, commonly used, machine-readable format or ask us to transfer it to another service provider where technically feasible.</p>
+<h3>Correction Rights</h3>
+<p>You may request correction of inaccurate or incomplete personal information we maintain about you.</p>
+<h3>Deletion Rights</h3>
+<p>You may request deletion of your personal information in certain circumstances, such as when it’s no longer necessary for the purposes for which it was collected.</p>
+<h3>Restriction Rights</h3>
+<p>You may request that we limit the processing of your personal information in specific situations, such as when you contest the accuracy of the data.</p>
+<h3>Objection Rights</h3>
+<p>You may object to certain types of processing, including for direct marketing purposes or when processing is based on legitimate interests.</p>
+<h3>Opt-Out Rights</h3>
+<p>You may opt out of receiving marketing communications by using the unsubscribe link in emails or by contacting us directly.</p>
+<h3>Consent Withdrawal</h3>
+<p>Where processing is based on your consent, you may withdraw that consent at any time. This will not affect the lawfulness of processing based on consent before withdrawal.</p>
+<h3>Appeal Rights</h3>
+<p>If we decline your request to exercise any of these rights, you may appeal our decision by contacting us as described below.</p>
+<p><strong>Non-Discrimination:</strong> We will not discriminate against you for exercising any of these privacy rights.</p>
+</div>
+<div class="section" id="children">
+<h2>Children’s Privacy Protection</h2>
+<p>FinRadar.ai is designed for professional investors and is not intended for individuals under 18 years of age. We do not knowingly collect personal information from minors.</p>
+<p>If we discover that we have inadvertently collected information from someone under 18, we will promptly delete that information from our systems. If you believe we have collected information from a minor, please contact us immediately using the information provided below.</p>
+</div>
+<div class="section" id="ai">
+<h2>Artificial Intelligence Usage</h2>
+<p>FinRadar.ai may utilize artificial intelligence and automated tools to enhance our Services, including:</p>
+<ul>
+<li>Data analysis and pattern recognition for market insights</li>
+<li>Automated research summaries and document analysis</li>
+<li>Customer support chatbots</li>
+</ul>
+<p>Some AI features may be powered by third-party providers, and information you submit through these tools may be subject to the provider’s privacy policy. We recommend avoiding the submission of sensitive personal information through AI-powered features.</p>
+</div>
+<div class="section" id="third-party">
+<h2>Third-Party Links and Services</h2>
+<p>Our Platform may contain links to external websites, services, or integrations not operated by FinRadar.ai. This Privacy Policy does not apply to third-party sites or services.</p>
+<p>We are not responsible for the privacy practices or content of external sites. We encourage you to review the privacy policies of any third-party services you access through links on our Platform.</p>
+<p>When you engage with third-party payment processors, data brokers, or other external services, their privacy policies govern the collection and use of your information by those parties.</p>
+</div>
+<div class="section" id="exercise">
+<h2>Exercising Your Rights</h2>
+<p>To exercise any of the privacy rights described in this Policy, please contact us using the information in the Contact section below.</p>
+<p>We may need to verify your identity before processing your request to ensure we’re providing information only to the rightful account holder. In some cases, we may request additional information to confirm your identity and your right to access specific information.</p>
+<p>We will respond to verified requests within the timeframes required by applicable privacy laws, typically within 30-45 days. If we need additional time, we’ll notify you of the extension and the reasons for it.</p>
+<p>In certain circumstances, we may decline requests where we cannot verify your identity, cannot locate your information, or where the law permits or requires us to retain the information. We will explain the reasons for any denial.</p>
+<h3>Authorized Agents</h3>
+<p>You may designate an authorized agent to submit privacy requests on your behalf. We will require verification of the agent’s authority to act on your behalf before processing such requests.</p>
+</div>
+<div class="contact-box" id="contact">
+<h2>Contact Information</h2>
+<p>For questions about this Privacy Policy, to exercise your privacy rights, or to contact us regarding your personal information, please reach out to:</p>
+<p><strong>Email:</strong> <a href="mailto:support@finradar.ai">support@finradar.ai</a></p>
+<p>We are committed to addressing your privacy concerns and will respond to your inquiries as promptly as possible.</p>
+</div>
+<div class="section" id="updates">
+<h2>Policy Updates</h2>
+<p>We may update this Privacy Policy periodically to reflect changes in our practices, legal requirements, or Platform features. When we make changes, we will update the “Last Updated” date at the top of this Policy.</p>
+<p>For material changes that significantly affect how we handle your personal information, we will provide prominent notice through:</p>
+<ul>
+<li>Email notification to your registered email address</li>
+<li>Prominent display on our Platform</li>
+<li>Other appropriate communication channels</li>
+</ul>
+<p>We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information. Your continued use of FinRadar.ai after policy updates constitutes your acceptance of the revised terms.</p>
+</div>
+<div class="legal-footer">
+<p class="legal-footer__text">© 2025 FinRadar.ai. All rights reserved.</p>
+</div>
+
+    </article>
+  </main>
+</body>
+</html>
