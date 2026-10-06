@@ -11,6 +11,8 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 CLAUDE_MANIFEST = ROOT / ".claude-plugin/plugin.json"
 CLAUDE_MARKETPLACE = ROOT / ".claude-plugin/marketplace.json"
+CUSTOMER_MCP_URL = "https://api.finradar.ai/api/mcp"
+OPENAI_MCP_URL = "https://mcp.finradar.ai/api/mcp"
 FILES = (
     ".codex-plugin/plugin.json", ".claude-plugin/plugin.json", ".mcp.json",
     "skills/finradar-api/SKILL.md", "README.md", "scripts/package_plugin.py",
@@ -29,6 +31,23 @@ def archive_bytes(files):
             info.external_attr = 0o100644 << 16
             archive.writestr(info, data)
     return output.getvalue()
+
+
+def json_bytes(value):
+    return (json.dumps(value, indent=2) + "\n").encode()
+
+
+def write_immutable(destination, data):
+    """Write one content-addressed output without replacing another build."""
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.exists():
+        if destination.read_bytes() != data:
+            raise FileExistsError(
+                "Output differs from an existing release; choose a new output directory"
+            )
+        return
+    with destination.open("xb") as stream:
+        stream.write(data)
 
 
 def main():
@@ -70,9 +89,15 @@ def main():
         raise ValueError("Connected plugin must contain one skill and no frozen API references/helpers")
     connection = json.loads((ROOT / ".mcp.json").read_text())
     if connection != {"mcpServers": {"finradar": {
-        "type": "http", "url": "https://api.finradar.ai/api/mcp"
+        "type": "http", "url": CUSTOMER_MCP_URL
     }}}:
         raise ValueError("Connection must preserve the existing credential-free FinRadar URL")
+    icon_path = source["interface"].get("composerIcon")
+    if icon_path != source["interface"].get("logo") or icon_path != "./assets/finradar-icon.png":
+        raise ValueError("OpenAI presentation fields must share the canonical FinRadar icon")
+    icon = (ROOT / icon_path.removeprefix("./")).read_bytes()
+    if not icon.startswith(b"\x89PNG\r\n\x1a\n") or len(icon) > 10_000:
+        raise ValueError("Canonical FinRadar icon must be a PNG no larger than 10 KB")
     if any(p.is_symlink() for p in ROOT.rglob("*")):
         raise ValueError("Release input must contain regular files, not symlinks")
 
@@ -86,20 +111,32 @@ def main():
     CLAUDE_MANIFEST.parent.mkdir(exist_ok=True)
     for path, payload in generated.items():
         path.write_text(json.dumps(payload, indent=2) + "\n")
-    data = archive_bytes({name: (ROOT / name).read_bytes() for name in FILES})
+    files = {name: (ROOT / name).read_bytes() for name in FILES}
+    data = archive_bytes(files)
     digest = hashlib.sha256(data).hexdigest()
-    output_dir = (args.build_output_dir / digest
-                  if args.build_output_dir is not None else args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    destination = output_dir / "finradar.plugin"
-    if destination.exists():
-        if destination.read_bytes() != data:
-            raise FileExistsError("Output differs from an existing release; choose a new output directory")
-    else:
-        with destination.open("xb") as stream:
-            stream.write(data)
-    print(json.dumps({"package": str(destination), "files": len(FILES),
-                      "sha256": digest, "bytes": len(data)}))
+    destination = ((args.build_output_dir / digest) if args.build_output_dir is not None
+                   else args.output_dir) / "finradar.plugin"
+    write_immutable(destination, data)
+
+    openai_files = dict(files)
+    openai_connection = json.loads(json.dumps(connection))
+    openai_connection["mcpServers"]["finradar"]["url"] = OPENAI_MCP_URL
+    openai_files[".mcp.json"] = json_bytes(openai_connection)
+    openai_data = archive_bytes(openai_files)
+    openai_digest = hashlib.sha256(openai_data).hexdigest()
+    openai_destination = ((args.build_output_dir / openai_digest)
+                          if args.build_output_dir is not None else args.output_dir) / "finradar-openai.zip"
+    write_immutable(openai_destination, openai_data)
+
+    print(json.dumps({
+        "package": str(destination),
+        "files": len(FILES),
+        "sha256": digest,
+        "bytes": len(data),
+        "openai_package": str(openai_destination),
+        "openai_sha256": openai_digest,
+        "openai_bytes": len(openai_data),
+    }))
 
 
 if __name__ == "__main__":

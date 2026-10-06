@@ -104,7 +104,8 @@ Public directory approval and website-account installation are separate steps.
 - `.claude-plugin/marketplace.json`: generated Claude catalog pointing at this
   same package, with its category and display metadata from the canonical source.
 - `scripts/package_plugin.py`: generates both Claude files, checks consistency,
-  and creates a deterministic `.plugin` ZIP from an explicit file allowlist.
+  and creates the customer `.plugin` archive plus the OpenAI submission ZIP
+  through one deterministic archive writer and one explicit file allowlist.
 - `legal/privacy-policy/index.html`: canonical script-free public privacy policy.
 
 Run the packaging script with `--output-dir` to generate a release. Its `--check`
@@ -123,14 +124,20 @@ Invalid input stops the documentation build. Python's standard library is the
 only packaging dependency; the frontend Dockerfile installs it in the temporary
 build stage, not the final website image.
 
-The archive is written beneath `.generated/ai-plugins/<sha256>/finradar.plugin`.
-Identical builds reuse the identical archive; changed content gets a new directory
-without deleting or replacing an earlier archive. The command prints its path,
-size and digest. These are private preparation artifacts, excluded from Git and
-the incoming Docker build context, and are not copied into website assets or the
-final nginx image. The release command consumes this packager's archive and digest
-only after deployment and live publication verification pass. Building alone
-does not publish, install, register or refresh anything.
+The customer archive is written beneath
+`.generated/ai-plugins/<sha256>/finradar.plugin`; the OpenAI archive is written
+beneath its own content digest as `finradar-openai.zip`. Both contain the same
+nine files from the same source. Only the OpenAI archive's `.mcp.json` is
+projected to `https://mcp.finradar.ai/api/mcp`; the customer archive retains
+`https://api.finradar.ai/api/mcp`. The skill, metadata, FinRadar logo and legal
+page are byte-identical across the two archives. Identical builds reuse the
+identical archives; changed content gets a new directory without deleting or
+replacing an earlier archive. The command prints both paths, sizes and digests.
+These are private preparation artifacts, excluded from Git and the incoming
+Docker build context, and are not copied into website assets or the final nginx
+image. The existing GitHub release command consumes only the `finradar.plugin`
+path after its deployment and live publication checks. Building alone does not
+publish, install, register, upload, submit for review or refresh anything.
 Content identity is not a provider version: skill or listing changes still need
 an appropriately versioned, reviewed release through the provider's channel.
 

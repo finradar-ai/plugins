@@ -1,6 +1,6 @@
 {
   "name": "finradar",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Research SEC filings, institutional holdings, insider transactions, beneficial ownership and company financials with FinRadar.",
   "author": {
     "name": "FinRadar",
@@ -30,9 +30,9 @@
     ],
     "websiteURL": "https://api.finradar.ai",
     "defaultPrompt": [
-      "Use FinRadar to get Berkshire Hathaway's five largest reported positions.",
-      "Use FinRadar to get Apple's five most recent SEC filings.",
-      "Use FinRadar to get the five most recent insider transactions for NVDA."
+      "Get me Berkshire Hathaway's five largest reported positions.",
+      "Show net insider trading activity by sector over the last 30 days.",
+      "Show aggregate fund activity in AAPL over recent reported quarters."
     ],
     "supportURL": "https://finradar.ai/contact-us/",
     "privacyPolicyURL": "https://mcp.finradar.ai/privacy-policy/",
