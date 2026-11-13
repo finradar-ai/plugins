@@ -127,12 +127,15 @@ build stage, not the final website image.
 The customer archive is written beneath
 `.generated/ai-plugins/<sha256>/finradar.plugin`; the OpenAI archive is written
 beneath its own content digest as `finradar-openai.zip`. Both contain the same
-nine files from the same source. Only the OpenAI archive's `.mcp.json` is
-projected to `https://mcp.finradar.ai/api/mcp`; the customer archive retains
-`https://api.finradar.ai/api/mcp`. The skill, metadata, FinRadar logo and legal
-page are byte-identical across the two archives. Identical builds reuse the
-identical archives; changed content gets a new directory without deleting or
-replacing an earlier archive. The command prints both paths, sizes and digests.
+nine files from the same source. The customer archive retains the stable package
+name `finradar` and `https://api.finradar.ai/api/mcp`. The OpenAI archive projects
+the separate internal package name `finradar-financial-research` and
+`https://mcp.finradar.ai/api/mcp`, giving the dedicated-host submission a stable
+identity distinct from the older general-host record. The visible FinRadar name,
+skill, interface metadata, logo and legal page remain the same.
+Identical builds reuse the identical archives; changed content gets a new
+directory without deleting or replacing an earlier archive. The command prints
+both paths, sizes and digests.
 These are private preparation artifacts, excluded from Git and the incoming
 Docker build context, and are not copied into website assets or the final nginx
 image. The existing GitHub release command consumes only the `finradar.plugin`
@@ -154,7 +157,13 @@ the automatic release path.
 The publisher generates both root catalogs, the shared plugin directory and
 `finradar.plugin` from the same archive. Unchanged content causes no upload or
 version bump. Changed content automatically advances the numeric patch version
-(or uses a higher canonical release version). A non-forced, single Git update
+(or uses a higher canonical release version). That release number is the only
+one: the publisher also writes the OpenAI archive stamped with it, on the machine
+that runs the release, at
+`sandbox_frontend/.generated/ai-plugins/releases/<version>/finradar-openai.zip`,
+and prints its path and digest. That archive is the one uploaded to OpenAI; the
+build-time `finradar-openai.zip` carries the source's placeholder version. An
+unchanged release writes the same archive under its current number. A non-forced, single Git update
 publishes the complete tree. An older source commit, unexpected repository files,
 competing release, failed request or failed readback stops completion; there is
 no automatic rollback, service restart or background retry. The existing GitHub

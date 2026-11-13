@@ -28,7 +28,7 @@ from the connection's current tool definitions, not from a bundled API catalogue
 - Request the user's filters, ordering, reporting period and result count where
   the current tool supports them. Do not fetch unrelated enrichment.
 - When a selected tool says its first text block is ready to display, return
-  that text unchanged in a plain-text code block as the answer. Do not summarize, reformat, relabel,
+  that text unchanged as the answer (statements arrive as Markdown tables). Do not summarize, reformat, relabel,
   reorder, recalculate or reconstruct it from the structured response. Use the
   structured response only when the user asks for further analysis.
 - Answer once sufficient data returns. Preserve the result's reporting date,

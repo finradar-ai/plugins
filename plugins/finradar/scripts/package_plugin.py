@@ -5,12 +5,16 @@ import argparse
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
+import tempfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 CLAUDE_MANIFEST = ROOT / ".claude-plugin/plugin.json"
 CLAUDE_MARKETPLACE = ROOT / ".claude-plugin/marketplace.json"
+CUSTOMER_PACKAGE_NAME = "finradar"
+OPENAI_PACKAGE_NAME = "finradar-financial-research"
 CUSTOMER_MCP_URL = "https://api.finradar.ai/api/mcp"
 OPENAI_MCP_URL = "https://mcp.finradar.ai/api/mcp"
 FILES = (
@@ -38,16 +42,58 @@ def json_bytes(value):
 
 
 def write_immutable(destination, data):
-    """Write one content-addressed output without replacing another build."""
+    """Write one content-addressed output without replacing another build.
+
+    The bytes are written to a temporary file in the same directory and appear under
+    the final name only when complete, through a no-clobber hard link, so a write that
+    fails partway (full disk, interrupt) never leaves a file a later run must refuse.
+    """
     destination.parent.mkdir(parents=True, exist_ok=True)
-    if destination.exists():
-        if destination.read_bytes() != data:
-            raise FileExistsError(
-                "Output differs from an existing release; choose a new output directory"
-            )
-        return
-    with destination.open("xb") as stream:
-        stream.write(data)
+    if not destination.exists():
+        descriptor, partial = tempfile.mkstemp(dir=destination.parent, prefix=".partial-")
+        try:
+            with os.fdopen(descriptor, "wb") as stream:
+                stream.write(data)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.chmod(partial, 0o644)
+            try:
+                os.link(partial, destination)
+            except FileExistsError:
+                pass
+        finally:
+            os.unlink(partial)
+    if destination.read_bytes() != data:
+        raise FileExistsError(
+            "Output differs from an existing release; choose a new output directory"
+        )
+
+
+def project_openai_files(files):
+    """Project the dedicated OpenAI identity without changing customer files."""
+    projected = dict(files)
+    codex = json.loads(projected[".codex-plugin/plugin.json"])
+    claude = json.loads(projected[".claude-plugin/plugin.json"])
+    marketplace = json.loads(projected[".claude-plugin/marketplace.json"])
+    names = {
+        codex.get("name"), claude.get("name"), marketplace.get("name"),
+        marketplace.get("plugins", [{}])[0].get("name"),
+    }
+    if names != {CUSTOMER_PACKAGE_NAME}:
+        raise ValueError("Expected one canonical FinRadar customer package identity")
+
+    codex["name"] = OPENAI_PACKAGE_NAME
+    claude["name"] = OPENAI_PACKAGE_NAME
+    marketplace["name"] = OPENAI_PACKAGE_NAME
+    marketplace["plugins"][0]["name"] = OPENAI_PACKAGE_NAME
+    projected[".codex-plugin/plugin.json"] = json_bytes(codex)
+    projected[".claude-plugin/plugin.json"] = json_bytes(claude)
+    projected[".claude-plugin/marketplace.json"] = json_bytes(marketplace)
+
+    connection = json.loads(projected[".mcp.json"])
+    connection["mcpServers"][CUSTOMER_PACKAGE_NAME]["url"] = OPENAI_MCP_URL
+    projected[".mcp.json"] = json_bytes(connection)
+    return projected
 
 
 def main():
@@ -60,7 +106,7 @@ def main():
     args = parser.parse_args()
 
     source = json.loads((ROOT / FILES[0]).read_text())
-    if source.get("name") != "finradar" or not source.get("version"):
+    if source.get("name") != CUSTOMER_PACKAGE_NAME or not source.get("version"):
         raise ValueError("Expected named, versioned FinRadar package metadata")
     expected = {key: source[key] for key in (
         "name", "version", "description", "author", "homepage", "keywords"
@@ -118,10 +164,7 @@ def main():
                    else args.output_dir) / "finradar.plugin"
     write_immutable(destination, data)
 
-    openai_files = dict(files)
-    openai_connection = json.loads(json.dumps(connection))
-    openai_connection["mcpServers"]["finradar"]["url"] = OPENAI_MCP_URL
-    openai_files[".mcp.json"] = json_bytes(openai_connection)
+    openai_files = project_openai_files(files)
     openai_data = archive_bytes(openai_files)
     openai_digest = hashlib.sha256(openai_data).hexdigest()
     openai_destination = ((args.build_output_dir / openai_digest)
